@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Recommendation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to right, white);
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            width: 45%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .left-container {
+            background-color:antiquewhite;
+            color: black;
+            justify-content: center;
+            align-items: center;
+            height: 950px;
+            gap: 10px;
+            margin-right: 20px;
+        }
+        .right-container {
+            background: white;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            width: 100%;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        input:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);
+        }
+        button {
+            padding: 12px;
+            width: 100%;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+        .results {
+            margin-top: 20px;
+            background: #e9f7ef;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container left-container">
+        <h1>Welcome to Crop Recommendation System</h1>
+        <p>Using K-NN and Random Forest Algorithms</p>
+    </div>
+
+    <div class="container right-container">
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label>Nitrogen (N):</label>
+                <input type="number" step="0.01" name="N" required>
+            </div>
+            <div class="form-group">
+                <label>Phosphorus (P):</label>
+                <input type="number" step="0.01" name="P" required>
+            </div>
+            <div class="form-group">
+                <label>Potassium (K):</label>
+                <input type="number" step="0.01" name="K" required>
+            </div>
+            <div class="form-group">
+                <label>Temperature:</label>
+                <input type="number" step="0.01" name="temperature" required>
+            </div>
+            <div class="form-group">
+                <label>Humidity:</label>
+                <input type="number" step="0.01" name="humidity" required>
+            </div>
+            <div class="form-group">
+                <label>pH:</label>
+                <input type="number" step="0.01" name="ph" required>
+            </div>
+            <div class="form-group">
+                <label>Rainfall:</label>
+                <input type="number" step="0.01" name="rainfall" required>
+            </div>
+            <div class="form-group">
+                <label>Select Model:</label>
+                <select name="model" required>
+                    <option value="rf">Random Forest</option>
+                    <option value="knn">K-Nearest Neighbors (KNN)</option>
+                </select>
+            </div>
+            <button type="submit">Predict Crop</button>
+        </form>
+
+        {% if prediction_text %}
+        <div class="results">
+            <h2>Prediction Results</h2>
+            <p>{{ prediction_text }}</p>
+            <p>{{ model_text }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
